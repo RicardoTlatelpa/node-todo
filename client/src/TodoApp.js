@@ -1,0 +1,166 @@
+import React, {Component} from 'react';
+import Axios from 'axios';
+import Todos from './Todos';
+import './styles/TodoApp.css';
+
+
+class TodoApp extends Component{
+  constructor(){
+    super();
+    this.state = {
+      todo: [],
+      input: "",
+      showPage: true,
+      user: '',
+      id: ''
+    };
+    this.handleInput = this.handleInput.bind(this) 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
+    this.handlePage = this.handlePage.bind(this);
+    this.handleUpdateTodo = this.handleUpdateTodo.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleComplete = this.handleComplete.bind(this);
+  }
+ 
+   async  componentDidMount(){ 
+        let fetchUser = await Axios.get('/api/user');
+        this.setState({
+          user: fetchUser.data.username,
+          id: fetchUser.data.googleID
+        })
+         let response = await Axios.get(`/api/todos/${fetchUser.data.googleID}`);
+        
+        this.setState({
+          todo: response.data
+        })
+        
+    }
+    handleInput(event){
+      this.setState({
+        [event.target.name]: event.target.value
+      })
+    }
+
+    async handleSubmit(event){  
+      if(this.state.input === ""){
+        return alert("Fill in something to do.");
+      }
+      let addedObj = {
+        username: this.state.id,
+        todo: this.state.input,
+        isDone: false,
+        hasAttachment: false
+      }
+      try{
+      const response = await Axios.post('/api/todo/', addedObj)
+        console.log(response);
+      }catch(err){
+        console.log(`Axios request failed:${err}`);
+      }
+
+      
+    }
+   async handleRemove(id){
+    this.setState({
+      todo:this.state.todo.filter(x => x._id !== id)
+    })
+    
+     try{
+    const response = await Axios.get('/api/todo/test/delete/'+id);
+    console.log(response);
+  }catch(err){
+    console.log(err);
+  }
+  
+       
+     
+      
+    }
+    handlePage(bool){
+      this.setState({
+        showPage: bool
+      })
+    }
+    handleUpdateTodo(data){
+      this.setState({
+        todo: data
+      })
+    }
+     handleEdit(id, updatedTodo){
+      let changedObject = this.state.todo.map(x => {
+        if(x._id === id){
+          x.todo = updatedTodo
+        }
+        return x
+      })
+      this.setState({
+        todo: changedObject
+      })  
+
+      this.requestEdit(id)
+
+    }
+    async requestEdit(id){
+      let request = this.state.todo.filter(x => x._id === id)
+      let requestObj = {
+        id: request[0]._id,
+        username: request[0].username,
+        todo:request[0].todo,
+        isDone: request[0].isDone,
+        hasAttachment: request[0].hasAttachment
+      }
+      try{
+        let response = await Axios.post('/api/todo', requestObj)
+        console.log(response);
+      }catch(err){
+        console.log(err)
+      }
+      
+    }
+    async handleComplete(id){
+      let data = [...this.state.todo]
+      let index = data.findIndex(obj => obj._id === id);
+      
+      if(data[index].isDone ){
+        data[index].isDone = false
+      }else{
+        data[index].isDone = true
+      }
+      this.setState({
+        todo: data
+      })
+      let req = await Axios.post('/api/isDone', {id, isDone: data[index].isDone})
+      console.log(req);
+
+    }
+
+  render(){
+    
+    return(
+      <div className = "appBody">
+        <center>
+      <h2>Full Stack To-do List</h2>
+      <h3>Welcome, {this.state.user}</h3>
+      </center>
+      
+      <Todos 
+      showPage = {this.handlePage} 
+      todos = {this.state.todo} 
+      delete = {this.handleRemove}
+      update = {this.handleEdit}
+      complete = {this.handleComplete}
+      />
+      <div className = "app-addItem">
+        <form onSubmit = {this.handleSubmit}>
+      <input className = "app-input" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} onChange = {this.handleInput} name = "input" type = "text" value = {this.state.input}/>
+      <br/>
+      <button className = "app-btn" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} >Add</button>
+      </form>
+      </div>
+    </div>
+    )
+  }
+}
+
+export default TodoApp;
