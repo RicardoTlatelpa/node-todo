@@ -153,7 +153,7 @@ class TodoApp extends Component{
       />
       <div className = "app-addItem">
         <form onSubmit = {this.handleSubmit}>
-      <input className = "app-input" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} onChange = {this.handleInput} name = "input" type = "text" value = {this.state.input}/>
+      <input placeholder = "Add new task" className = "app-input" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} onChange = {this.handleInput} name = "input" type = "text" value = {this.state.input}/>
       <br/>
       <button className = "app-btn" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} >Add</button>
       </form>

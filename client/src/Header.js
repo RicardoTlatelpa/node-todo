@@ -24,7 +24,7 @@ class Header extends Component{
             default:
                  content =  <header>
                 <Link className = "home" to = "/app"><h2>Home</h2></Link>
-                <a class = "logoutButton"href = '/api/logout'><h2>Logout</h2></a>
+                <a className = "logoutButton"href = '/api/logout'><h2>Logout</h2></a>
                 </header>                
        }
        return content;

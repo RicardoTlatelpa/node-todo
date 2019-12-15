@@ -5,6 +5,7 @@ var passport = require('passport');
 require('./models/userModel');
 require('./services/passport');
 var keys = require('./config/keys');
+console.log("hey its me");
 var port = process.env.PORT || 5000;
 var apiController = require('./controllers/apiController');
 var authController = require('./controllers/oauthRoutes');
