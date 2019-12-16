@@ -22,13 +22,16 @@ passport.use(new GoogleStrategy({
     proxy: true
 }, function(accessToken, refreshToken, profile
     ,done){  
+        console.log('Before auth')
         User.findOne({googleID: profile.id}).then(existingUser =>{
             if(existingUser){
+                console.log('existing user');
                 done(null,existingUser)
                 
             }
             else{
                  //create instance for mongoDB
+                 console.log('creating new user');
                 new User ({
                     googleID: profile.id,
                     username: profile.displayName
