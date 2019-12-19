@@ -12,15 +12,7 @@ var authController = require('./controllers/oauthRoutes');
 
 
 var app = express();
-mongoose.connect(`mongodb+srv://${keys.uname}:${keys.pwd}@cluster0-vjcg1.mongodb.net/test?retryWrites=true&w=majority`, function(){
-    if(err){
-        console.log('Unable to connect');
-    } else{
-        console.log('Connection established to', url);
-    }
-    db.close()
-});
-
+mongoose.connect(`mongodb+srv://${keys.uname}:${keys.pwd}@cluster0-vjcg1.mongodb.net/test?retryWrites=true&w=majority`);
 // the data base is an open web socket
 app.use(cookieSession({
     keys: [keys.cookie_key],

@@ -2,7 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('../config/keys.js');
 const mongoose = require('mongoose');
-require('../models/userModel');
+
 
 const User = mongoose.model('users'); //fetching from mongoose; 1 argument
 
@@ -20,6 +20,7 @@ passport.use(new GoogleStrategy({
     clientSecret: keys.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback',
     proxy: true
+
 }, function(accessToken, refreshToken, profile
     ,done){  
         console.log('Before auth')
