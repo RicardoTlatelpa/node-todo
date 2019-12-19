@@ -5,14 +5,13 @@ var passport = require('passport');
 require('./models/userModel');
 require('./services/passport');
 var keys = require('./config/keys');
-console.log("hey its me");
+
 var port = process.env.PORT || 5000;
 var apiController = require('./controllers/apiController');
 var authController = require('./controllers/oauthRoutes');
 
-
-var app = express();
 mongoose.connect(`mongodb+srv://${keys.uname}:${keys.pwd}@cluster0-vjcg1.mongodb.net/test?retryWrites=true&w=majority`);
+var app = express();
 // the data base is an open web socket
 app.use(cookieSession({
     keys: [keys.cookie_key],
