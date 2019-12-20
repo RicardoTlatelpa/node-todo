@@ -18,7 +18,7 @@ passport.deserializeUser((id,done) =>{
 passport.use(new GoogleStrategy({
     clientID: keys.GOOGLE_CLIENT_ID,
     clientSecret: keys.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback',
+    callbackURL: 'https://node-todo123.herokuapp.com/auth/google/callback',
     proxy: true
 
 }, function(accessToken, refreshToken, profile
