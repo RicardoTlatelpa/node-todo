@@ -23,7 +23,7 @@ passport.use(new GoogleStrategy({
 
 }, function(accessToken, refreshToken, profile
     ,done){  
-        console.log(profile)
+        console.log(profile.id);
         User.findOne({googleID: profile.id}).then(existingUser =>{
             console.log('existing user');
             if(existingUser){
