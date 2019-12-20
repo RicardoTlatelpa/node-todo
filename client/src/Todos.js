@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import uuid from 'uuid';
 import './styles/Todos.css';
+
 class Todos extends Component {
     constructor(props){
         super(props);
         this.state = {
             edit: false,
             input: '',
-            item: ''
+            item: '',
+            
             
         }
         this.handleEdit = this.handleEdit.bind(this) 
@@ -49,8 +51,12 @@ class Todos extends Component {
     handleDone(id){
         this.props.complete(id);
     }
+    handlePopup(){
+        this.props.popup()
+    }
    
     render(){
+        
 
         let edit;
            
@@ -70,8 +76,10 @@ class Todos extends Component {
                <li onClick = {() => this.handleDone(x._id)} className = {x.isDone? 'doneItem' : 'notDoneItem'}> {x.todo} </li>
                <button className = "editBtn" onClick = {() => this.handleEdit(x.todo, x._id)}><i className="far fa-edit fa-2x"></i></button>
                <button className = "deleteBtn" onClick = {() => this.handleRemove(x._id)}><i className="far fa-trash-alt fa-2x"></i></button>
+               <button className = "deleteBtn " onClick = {() => this.handlePopup()}><i className="fas fa-upload fa-2x"></i></button>
                </ul>
            ))}    
+       
         </div>
         )
         return edit

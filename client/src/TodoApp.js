@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Axios from 'axios';
 import Todos from './Todos';
 import './styles/TodoApp.css';
-
+import Popup from './Popup';
 
 class TodoApp extends Component{
   constructor(){
@@ -12,7 +12,8 @@ class TodoApp extends Component{
       input: "",
       showPage: true,
       user: '',
-      id: ''
+      id: '',
+      popup: false
     };
     this.handleInput = this.handleInput.bind(this) 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,6 +22,7 @@ class TodoApp extends Component{
     this.handleUpdateTodo = this.handleUpdateTodo.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
   }
  
    async  componentDidMount(){ 
@@ -29,12 +31,13 @@ class TodoApp extends Component{
           user: fetchUser.data.username,
           id: fetchUser.data.googleID
         })
+        
          let response = await Axios.get(`/api/todos/${fetchUser.data.googleID}`);
         
-        this.setState({
-          todo: response.data
-        })
-        
+         this.setState({
+           todo: response.data
+         })
+         
     }
     handleInput(event){
       this.setState({
@@ -135,6 +138,13 @@ class TodoApp extends Component{
 
     }
 
+    togglePopup(){
+      this.setState({
+        popup: !this.state.popup
+      })
+    }
+
+
   render(){
     
     return(
@@ -150,6 +160,7 @@ class TodoApp extends Component{
       delete = {this.handleRemove}
       update = {this.handleEdit}
       complete = {this.handleComplete}
+      popup = {this.togglePopup}
       />
       <div className = "app-addItem">
         <form onSubmit = {this.handleSubmit}>
@@ -158,6 +169,7 @@ class TodoApp extends Component{
       <button className = "app-btn" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} >Add</button>
       </form>
       </div>
+      {this.state.popup? <Popup popup = {this.togglePopup}/> : null}
     </div>
     )
   }

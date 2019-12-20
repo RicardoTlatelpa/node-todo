@@ -5,7 +5,7 @@
 }
 .todoList-body{
     display: grid;
-    grid-template-columns: 70% 80px 80px;
+    grid-template-columns: 70% 80px 80px 80px;
     justify-content: center;
     
 }
@@ -40,9 +40,12 @@ text-decoration: line-through;
 text-decoration: none;
 }
 
-@media (max-width: 700px){
+@media (max-width: 600px){
     .Todos{
         width: 100%;
-        margin: 0;
     }
+    .todoList-body{
+        display: block;  
+    }
+    
 }

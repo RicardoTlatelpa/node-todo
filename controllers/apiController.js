@@ -62,8 +62,10 @@ module.exports = function(app){
     app.get('/api/todo/:uname/delete/:id', function(req,res){
         Todos.findByIdAndRemove({_id:req.params.id}, function(err){
             if(err) throw err;
-            console.log('Success')
+            console.log('Success');
         })        
     })
+
+  
 
 }
