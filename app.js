@@ -10,7 +10,7 @@ var port = process.env.PORT || 5000;
 var apiController = require('./controllers/apiController');
 var authController = require('./controllers/oauthRoutes');
 
-mongoose.connect(`mongodb+srv://${keys.uname}:${keys.pwd}@cluster0-vjcg1.mongodb.net/test?retryWrites=true&w=majority`);
+mongoose.connect(keys.mongoURI);
 var app = express();
 // the data base is an open web socket
 app.use(cookieSession({
