@@ -23,9 +23,9 @@ passport.use(new GoogleStrategy({
 
 }, function(accessToken, refreshToken, profile
     ,done){  
-        console.log(profile.id);
+        
         User.findOne({googleID: profile.id}).then(existingUser =>{
-            console.log('existing user');
+            console.log('findingUser');    
             if(existingUser){
                 
                 done(null,existingUser)
@@ -33,7 +33,7 @@ passport.use(new GoogleStrategy({
             }
             else{
                  //create instance for mongoDB
-                 console.log('creating new user');
+                 
                 new User ({
                     googleID: profile.id,
                     username: profile.displayName
