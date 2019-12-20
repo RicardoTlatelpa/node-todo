@@ -18,7 +18,7 @@ passport.deserializeUser((id,done) =>{
 passport.use(new GoogleStrategy({
     clientID: keys.GOOGLE_CLIENT_ID,
     clientSecret: keys.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://node-todo123.herokuapp.com/auth/google/callback',
+    callbackURL: '/auth/google/callback',
     proxy: true
 
 }, function(accessToken, refreshToken, profile
@@ -28,7 +28,7 @@ passport.use(new GoogleStrategy({
             console.log('findingUser');    
             if(existingUser){
                 
-                done(null,existingUser)
+              return  done(null,existingUser)
                 
             }
             else{
