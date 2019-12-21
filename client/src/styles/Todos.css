@@ -47,6 +47,10 @@ text-decoration: none;
     .todoList-body{
         display: block;  
     }
-
+    .todoList-body li{
+        display: block;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
     
 }

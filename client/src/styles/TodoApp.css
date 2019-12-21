@@ -29,3 +29,10 @@
     box-sizing: border-box;
     width: 50%;
 }
+
+@media(max-width: 600px){
+    .app-input{
+        width: 100%;
+        font-size: 12px;
+    }
+}
