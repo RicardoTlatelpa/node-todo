@@ -13,7 +13,7 @@ class TodoApp extends Component{
       showPage: true,
       user: '',
       id: '',
-      popup: false
+      popup: false,
     };
     this.handleInput = this.handleInput.bind(this) 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,8 +45,9 @@ class TodoApp extends Component{
       })
     }
 
-    async handleSubmit(event){  
+     handleSubmit (event){  
       event.preventDefault();
+
       if(this.state.input === ""){
         return alert("Fill in something to do.");
       }
@@ -56,15 +57,20 @@ class TodoApp extends Component{
         isDone: false,
         hasAttachment: false
       }
-      this.setState({
-        todo: [...this.state.todo, addedObj]
-      })
-      try{
-      const response = await Axios.post('/api/todo/', addedObj)
-        console.log(response);
-      }catch(err){
-        console.log(`Axios request failed:${err}`);
-      }
+     
+      
+      
+        
+      Axios.post('/api/todo/', addedObj)
+      .then( (res) => {
+        const newData = res.data
+        console.log(newData);
+        this.setState({
+          todo: newData
+        })
+       
+      }).catch(err => console.log(err))
+      
 
       
     }
@@ -74,13 +80,14 @@ class TodoApp extends Component{
     })
     
      try{
-    const response = await Axios.get('/api/todo/test/delete/'+id);
+    const response = await Axios.delete('/api/todo/test/delete/'+id);
     console.log(response);
   }catch(err){
     console.log(err);
   }
   
-       
+  
+  
      
       
     }
@@ -117,6 +124,7 @@ class TodoApp extends Component{
         isDone: request[0].isDone,
         hasAttachment: request[0].hasAttachment
       }
+
       try{
         let response = await Axios.post('/api/todo', requestObj)
         console.log(response);
