@@ -64,7 +64,7 @@ class TodoApp extends Component{
       Axios.post('/api/todo/', addedObj)
       .then( (res) => {
         const newData = res.data
-        console.log(newData);
+        
         this.setState({
           todo: newData
         })
@@ -74,17 +74,18 @@ class TodoApp extends Component{
 
       
     }
-   async handleRemove(id){
-    this.setState({
-      todo:this.state.todo.filter(x => x._id !== id)
-    })
+    handleRemove(id){
     
-     try{
-    const response = await Axios.delete('/api/todo/test/delete/'+id);
-    console.log(response);
-  }catch(err){
-    console.log(err);
-  }
+    
+     
+    Axios.delete('/api/todo/test/delete/'+id)
+    .then( (res) => {
+        let newData = res.data
+        this.setState({
+          todo: newData
+        })
+    })
+   
   
   
   

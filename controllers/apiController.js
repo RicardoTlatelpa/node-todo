@@ -67,7 +67,9 @@ module.exports = function(app){
 
         Todos.findByIdAndRemove({_id:req.params.id}, function(err){
             if(err) throw err;
-            console.log('Success');
+            Todos.find({username: req.user.googleID}, function(err, todos){
+                res.send(todos);
+            })
         })        
     })
 
