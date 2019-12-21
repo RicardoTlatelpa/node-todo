@@ -46,6 +46,7 @@ class TodoApp extends Component{
     }
 
     async handleSubmit(event){  
+      event.preventDefault();
       if(this.state.input === ""){
         return alert("Fill in something to do.");
       }
@@ -55,6 +56,9 @@ class TodoApp extends Component{
         isDone: false,
         hasAttachment: false
       }
+      this.setState({
+        todo: [...this.state.todo, addedObj]
+      })
       try{
       const response = await Axios.post('/api/todo/', addedObj)
         console.log(response);
