@@ -57,7 +57,9 @@ class TodoApp extends Component{
         isDone: false,
         hasAttachment: false
       }
-     
+     this.setState({
+       input: ''
+     })
       
       
         
