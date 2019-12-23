@@ -14,6 +14,7 @@ class TodoApp extends Component{
       user: '',
       id: '',
       popup: false,
+      fileUpload: ''
     };
     this.handleInput = this.handleInput.bind(this) 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,7 +56,8 @@ class TodoApp extends Component{
         username: this.state.id,
         todo: this.state.input,
         isDone: false,
-        hasAttachment: false
+        hasAttachment: false,
+        attachment: ''
       }
      this.setState({
        input: ''
@@ -80,7 +82,7 @@ class TodoApp extends Component{
     
     
      
-    Axios.delete('/api/todo/test/delete/'+id)
+    Axios.delete('/api/todo/delete/'+id)
     .then( (res) => {
         let newData = res.data
         this.setState({
@@ -153,11 +155,16 @@ class TodoApp extends Component{
 
     }
 
-    togglePopup(){
+    togglePopup(id){
+      
       this.setState({
+        fileUpload: id,
         popup: !this.state.popup
       })
+      
     }
+
+    
 
 
   render(){
@@ -184,7 +191,7 @@ class TodoApp extends Component{
       <button className = "app-btn" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} >Add</button>
       </form>
       </div>
-      {this.state.popup? <Popup popup = {this.togglePopup}/> : null}
+      {this.state.popup? <Popup id = {this.state.fileUpload}/> : null}
     </div>
     )
   }

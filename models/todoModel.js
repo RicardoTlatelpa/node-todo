@@ -7,7 +7,7 @@ var todoSchema = new Schema({
     todo: String,
     isDone: Boolean,
     hasAttachment: Boolean,
-    index: Number
+    attachment: String
 });
 
 var Todos = mongoose.model('Todos', todoSchema);

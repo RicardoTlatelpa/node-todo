@@ -13,6 +13,7 @@ var authController = require('./controllers/oauthRoutes');
 mongoose.connect(keys.mongoURI);
 var app = express();
 // the data base is an open web socket
+
 app.use(cookieSession({
     keys: [keys.cookie_key],
     maxAge: 1000 * 60 * 60 * 1000
@@ -21,7 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 authController(app);
 apiController(app);
-
+app.use('/uploads',express.static('uploads'));
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'));
 

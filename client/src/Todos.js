@@ -51,12 +51,13 @@ class Todos extends Component {
     handleDone(id){
         this.props.complete(id);
     }
-    handlePopup(){
-        this.props.popup()
+    handlePopup(id){
+        
+        this.props.popup(id)
     }
    
     render(){
-        
+        console.log(this.props.todos);
 
         let edit;
            
@@ -76,7 +77,8 @@ class Todos extends Component {
                <li onClick = {() => this.handleDone(x._id)} className = {x.isDone? 'doneItem' : 'notDoneItem'}> {x.todo} </li>
                <button className = "editBtn" onClick = {() => this.handleEdit(x.todo, x._id)}><i className="far fa-edit fa-2x"></i></button>
                <button className = "deleteBtn" onClick = {() => this.handleRemove(x._id)}><i className="far fa-trash-alt fa-2x"></i></button>
-               <button className = "deleteBtn " onClick = {() => this.handlePopup()}><i className="fas fa-upload fa-2x"></i></button>
+               <button className = "deleteBtn " onClick = {() => this.handlePopup(x._id)}><i className="fas fa-upload fa-2x"></i></button>
+               {<a href = {`/${x.attachment}`} >{x.attachment}</a>}
                </ul>
            ))}    
        
