@@ -32,20 +32,19 @@ module.exports = function(app){
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.post('/api/:id/attachment',upload.single('clientFile') ,function(req,res){
+    app.post('/api/:id/attachment',upload.single('clientFile') ,  function(req,res){
         
-       //update hasAttachment of todo with true and update attachment with file path from server
-        Todos.findByIdAndUpdate(req.params.id,{
+           Todos.findByIdAndUpdate(req.params.id,{
             attachment: req.file.path
         },function(err){
             if(err) throw err;
-            Todos.findById({_id: req.params.id}, function (err, todo){
+          Todos.findById({_id: req.params.id}, function (err, todo){
                 if(err) throw err;
-                res.send(todo);
+               return res.send(todo);
             })
         })
-        
-    })
+    
+    });
     app.get('/api/todos/:username', function(req,res){
 
         Todos.find({ username: req.params.username }, function(err,todos){
@@ -104,17 +103,6 @@ module.exports = function(app){
     });
 
     app.delete('/api/todo/delete/:id', function(req,res){
-
-        // Todos.findById({_id: req.params.id}, function(err,todo){
-            
-        //     console.log(todo.attachment);
-        //         // fs.unlink(todo.attachment, (err) => {
-        //         //     if(err) throw err;
-        //         //     console.log('file was deleted');
-        //         // })
-            
-            
-        // })
         Todos.findByIdAndRemove({_id:req.params.id}, function(err,todo){
             
                 if(todo.attachment.indexOf('upload') !== -1){
