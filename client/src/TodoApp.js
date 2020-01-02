@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Todos from './Todos';
 import './styles/TodoApp.css';
 import Popup from './Popup';
+import { Redirect } from 'react-router-dom';
 
 class TodoApp extends Component{
   constructor(){
@@ -32,7 +33,6 @@ class TodoApp extends Component{
           user: fetchUser.data.username,
           id: fetchUser.data.googleID
         })
-        
          let response = await Axios.get(`/api/todos/${fetchUser.data.googleID}`);
         
          this.setState({
@@ -168,7 +168,9 @@ class TodoApp extends Component{
 
 
   render(){
-    
+    if(this.state.user === undefined){
+      return <Redirect to="/"/>
+   }
     return(
       <div className = "appBody">
         <center>
