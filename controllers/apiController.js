@@ -95,7 +95,7 @@ module.exports = function(app){
             newTodo.save(function(err){
                 if(err) throw err;
                 Todos.find({username: req.user.googleID}, function(err, todos){
-                    res.send(todos)
+                    res.send(todos)                
                 })
             })
             
