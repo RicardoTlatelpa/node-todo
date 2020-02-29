@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    padding: 15px;
 }
 #laptop-image{
     width: 600px ;
@@ -18,6 +19,9 @@
 }
 
 @media(max-width: 800px){
+    .Landing-info{
+        text-align: center;
+    }
     #laptop-image{
         width: 100%;
         height: 100%;
