@@ -75,13 +75,14 @@ text-decoration: line-through;
     width: 200px;
     margin-top: 6px;
 }
-@media (max-width: 600px){
+@media (max-width: 800px){
     .Todos{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 100%;
+        overflow: visible;
     }
     .todoList-body{
         display: flex;
