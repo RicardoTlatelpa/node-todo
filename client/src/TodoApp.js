@@ -15,7 +15,8 @@ class TodoApp extends Component{
       user: '',
       id: '',
       popup: false,
-      fileUpload: ''
+      fileUpload: '',
+      quoteData: {}
     };
     this.handleInput = this.handleInput.bind(this) 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,25 +28,27 @@ class TodoApp extends Component{
     this.togglePopup = this.togglePopup.bind(this);
   }
  
-   async  componentDidMount(){ 
+   async componentDidMount(){ 
         let fetchUser = await Axios.get('/api/user');
+        let fetchQuote = await Axios.get('https://quotes.rest/qod?language=en');
+        const {quote, author} = fetchQuote.data.contents.quotes[0];
+        
         this.setState({
           user: fetchUser.data.username,
-          id: fetchUser.data.googleID
+          id: fetchUser.data.googleID,
+          quoteData: {quote, author}
         })
-         let response = await Axios.get(`/api/todos/${fetchUser.data.googleID}`);
-        
+         let response = await Axios.get(`/api/todos/${fetchUser.data.googleID}`);         
          this.setState({
            todo: response.data
-         })
-         
+         })  
     }
+
     handleInput(event){
       this.setState({
         [event.target.name]: event.target.value
       })
     }
-
      handleSubmit (event){  
       event.preventDefault();
 
@@ -61,10 +64,7 @@ class TodoApp extends Component{
       }
      this.setState({
        input: ''
-     })
-      
-      
-        
+     })  
       Axios.post('/api/todo/', addedObj)
       .then( (res) => {
         const newData = res.data
@@ -78,10 +78,7 @@ class TodoApp extends Component{
 
       
     }
-    handleRemove(id){
-    
-    
-     
+    handleRemove(id){  
     Axios.delete('/api/todo/delete/'+id)
     .then( (res) => {
         let newData = res.data
@@ -90,11 +87,6 @@ class TodoApp extends Component{
         })
     })
    
-  
-  
-  
-     
-      
     }
     handlePage(bool){
       this.setState({
@@ -154,14 +146,11 @@ class TodoApp extends Component{
       console.log(req);
 
     }
-
-    togglePopup(id){
-      
+    togglePopup(id){   
       this.setState({
         fileUpload: id,
         popup: !this.state.popup
-      })
-      
+      }) 
     }
 
     
@@ -174,10 +163,19 @@ class TodoApp extends Component{
     return(
       <div className = "appBody">
         <center>
-      <h2>Full Stack To-do List</h2>
+      <h2 style = {{fontWeight: "400"}}>Tasks</h2>
       <h3>Welcome, {this.state.user}</h3>
       </center>
+      <center>
+        {this.state.todo.length === 0 ? 
+        <div className = "nothing-div">
+        <h4>There seems to be an air of nothingess...
+          <br/>
+          <i className="fas fa-wind"></i>          
+        </h4>
+        </div>: null}
       
+      </center>
       <Todos 
       showPage = {this.handlePage} 
       todos = {this.state.todo} 
@@ -194,6 +192,11 @@ class TodoApp extends Component{
       </form>
       </div>
       {this.state.popup? <Popup id = {this.state.fileUpload}/> : null}
+      <div className = "appBody-quote-div">
+        <h4><i id = "mug_icon" className="fas fa-mug-hot fa-2x"></i></h4>
+        <p>"{this.state.quoteData.quote}"</p>
+        <p>-{this.state.quoteData.author}</p>
+      </div>
     </div>
     )
   }

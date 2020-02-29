@@ -8,9 +8,7 @@ class Todos extends Component {
         this.state = {
             edit: false,
             input: '',
-            item: '',
-            
-            
+            item: '',                        
         }
         this.handleEdit = this.handleEdit.bind(this) 
         this.handleInput = this.handleInput.bind(this);
@@ -24,16 +22,12 @@ class Todos extends Component {
     }
 
     handleEdit(t, id){
-        this.props.showPage(this.state.edit)
-        
+        this.props.showPage(this.state.edit)        
         this.setState({
             edit: !this.state.edit,
             input: t,
             item: id
         })
-    
-       
-
     }
     handleUpdate(){
         if(this.state.input === ''){
@@ -51,37 +45,50 @@ class Todos extends Component {
     handleDone(id){
         this.props.complete(id);
     }
-    handlePopup(id){
-        
+    handlePopup(id){        
         this.props.popup(id)
     }
    
     render(){
-        console.log(this.props.todos);
-
-        let edit;
-           
+        let edit;           
         this.state.edit ? edit = (
-            <div className = "Todo-update">
-            
-            <input name = "input" onChange = {this.handleInput} value = {this.state.input} type = "text"/>
-            <button className = "updateBtn" onClick = {this.handleUpdate}><i class="far fa-thumbs-up fa-2x"></i></button>
-            
-            
+            <div className = "Todo-update">            
+            <input 
+            name = "input" 
+            onChange = {this.handleInput} 
+            value = {this.state.input} 
+            type = "text"/>
+            <button 
+            className = "updateBtn" 
+            onClick = {this.handleUpdate}>
+                <i class="far fa-thumbs-up fa-2x"></i>
+            </button>                        
             </div>
         ):
         edit = (
             <div className = "Todos">    
            {this.props.todos.map(x => (
                <ul className = "todoList-body" key = {uuid.v4()}>
-               <li onClick = {() => this.handleDone(x._id)} className = {x.isDone? 'doneItem' : 'notDoneItem'}> {x.todo} </li>
-               <button className = "editBtn" onClick = {() => this.handleEdit(x.todo, x._id)}><i className="far fa-edit fa-2x"></i></button>
-               <button className = "deleteBtn" onClick = {() => this.handleRemove(x._id)}><i className="far fa-trash-alt fa-2x"></i></button>
-               <button className = "deleteBtn " onClick = {() => this.handlePopup(x._id)}><i className="fas fa-upload fa-2x"></i></button>
+               <li onClick = {() => this.handleDone(x._id)} className = {x.isDone? 'doneItem' : 'notDoneItem'}> 
+               <p>{x.todo}</p> 
+               </li>
+               <div className = "button-todo-div">
+               <button className = "editBtn" onClick = {
+                   () => this.handleEdit(x.todo, x._id)}>
+                       <i className="far fa-edit fa-2x"></i>
+                </button>
+               <button className = "deleteBtn" onClick = {
+                   () => this.handleRemove(x._id)}>
+                       <i className="far fa-trash-alt fa-2x"></i>
+               </button>
+               <button className = "deleteBtn " onClick = {
+                   () => this.handlePopup(x._id)}>
+                       <i className="fas fa-upload fa-2x"></i>
+                </button>                
+                </div>
                {<a href = {`/${x.attachment}`} >{x.attachment}</a>}
                </ul>
-           ))}    
-       
+           ))}           
         </div>
         )
         return edit

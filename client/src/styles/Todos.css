@@ -1,28 +1,51 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+p{    
+    margin: 0 auto;
+    max-width: 300px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.appBody > *{
+    margin: 20px;
+}
 .Todos{
     display: block;
 	margin: auto;
-	width: 50%;
+    width: 50%;
+    margin-top: 15px;
+    line-height: 1.5;
 }
 .todoList-body{
     display: grid;
     grid-template-columns: 70% 80px 80px 80px;
     justify-content: center;
-    
+    border-top: 1px solid rgba(0, 0, 0, 0.18);
+    padding: 10px;
 }
 .todoList-body li{
     list-style-type: none;
     grid-column-end: 2;
     justify-self: start;
-    
 }
 .deleteBtn{
     width:20%;
     border: none;
-    
+}
+.deleteBtn:hover{
+    color: #B01317;
 }
 .editBtn{
     width: 20%;
     border: none;
+}
+.editBtn:hover{
+    color:#B01317;
 }
 .Todo-update{
     text-align: center;
@@ -37,20 +60,38 @@
 text-decoration: line-through;
 }
 .notDoneItem{
-text-decoration: none;
+    text-decoration: none;
 }
-
+.notDoneItem:hover{
+    color: #04BFBF;
+}
+.nothing-div{
+    color: #017349;
+}
+.button-todo-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;    
+    width: 200px;
+    margin-top: 6px;
+}
 @media (max-width: 600px){
     .Todos{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         width: 100%;
     }
     .todoList-body{
-        display: block;  
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 15px;
     }
     .todoList-body li{
         display: block;
-        padding-top: 30px;
-        padding-bottom: 30px;
+        
     }
     
 }

@@ -4,6 +4,7 @@ header{
     top:0;   
     display: fixed;
     background-color: #04BFBF;
+    padding: 15px;
 }
 .home{
     float: left;
