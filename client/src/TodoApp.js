@@ -162,20 +162,13 @@ class TodoApp extends Component{
    }
     return(
       <div className = "appBody">
-        <center>
-      <h2 style = {{fontWeight: "400"}}>Tasks</h2>
-      <h3>Welcome, {this.state.user}</h3>
-      </center>
-      <center>
-        {this.state.todo.length === 0 ? 
-        <div className = "nothing-div">
-        <h4>There seems to be an air of nothingess...
-          <br/>
-          <i className="fas fa-wind"></i>          
-        </h4>
-        </div>: null}
-      
-      </center>
+      <div className = "appBody-titles">
+      <h2 style = {{fontWeight: "400"}}>Your Tasks</h2>
+      <h4>Welcome, {this.state.user}</h4>
+        </div>
+       
+        <div className = "appBody-content">
+       
       <Todos 
       showPage = {this.handlePage} 
       todos = {this.state.todo} 
@@ -184,6 +177,13 @@ class TodoApp extends Component{
       complete = {this.handleComplete}
       popup = {this.togglePopup}
       />
+       {this.state.todo.length === 0 ? 
+        <div className = "nothing-div">
+        <h4>There seems to be an air of nothingess...
+          <br/>
+          <i className="fas fa-wind fa-3x"></i>          
+        </h4>
+        </div>: null}
       <div className = "app-addItem">
         <form onSubmit = {this.handleSubmit}>
       <input placeholder = "Add new task" className = "app-input" style = {{visibility: this.state.showPage ? 'visible': 'hidden'}} onChange = {this.handleInput} name = "input" type = "text" value = {this.state.input}/>
@@ -197,6 +197,9 @@ class TodoApp extends Component{
         <p>"{this.state.quoteData.quote}"</p>
         <p>-{this.state.quoteData.author}</p>
       </div>
+      </div>
+      
+      
     </div>
     )
   }

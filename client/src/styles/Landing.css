@@ -1,5 +1,26 @@
 .Landing{
-    display: block;
+    display: flex;
+    align-items: center;
     text-align: center;
-    
+    height: 90vh;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
 }
+
+.Landing-info{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+#laptop-image{
+    width: 600px ;
+    height: 400px;
+}
+
+@media(max-width: 800px){
+    #laptop-image{
+        width: 100%;
+        height: 100%;
+    }
+}
+
