@@ -57,11 +57,14 @@ class Todos extends Component {
             name = "input" 
             onChange = {this.handleInput} 
             value = {this.state.input} 
-            type = "text"/>
+            type = "text"
+            className = "update-input"
+            />
+            
             <button 
             className = "updateBtn" 
             onClick = {this.handleUpdate}>
-                <i class="far fa-thumbs-up fa-2x"></i>
+                Update
             </button>                        
             </div>
         ):
